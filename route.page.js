@@ -13,4 +13,9 @@ router.get('/posts', function(req, res, next) {
   res.render('posts', { title: 'Get post page' });
 });
 
+/* GET posts edit page. */
+router.get('/posts/create', function(req, res, next) {
+    res.render('create');
+  });
+
 module.exports = router;
