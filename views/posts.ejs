@@ -5,14 +5,24 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>
     <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
   </head>
   <body>
+      <div class="container">
+          <div class="col-md-10 col-md-offset-1">
       <div id="app">
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <p v-for="item in postsList">
-        <a v-bind:href="item.url">{{ item.title }}</a></p>
+    <ul class="list-group" v-for="item in postsList">
+        <li class="list-group-item">
+          <a v-bind:href="item.url">{{ item.title }}</a>
+        </li>
+      </ul>
 </div>
+</div>
+</div>
+
   </body>
 </html>
 <script>

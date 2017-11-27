@@ -12,7 +12,7 @@
     <div id="app">
         <div class="container">
             <div class="col-md-8 col-md-offset-2">
-      <h1>新建文章</h1>
+      <h1>修改文章</h1>
       <div class="form-group">
         <input type="text" class="form-control" v-model="title" placeholder="输入文字标题">
       </div>
@@ -28,26 +28,38 @@
   </body>
 </html>
 <script>
+  var postId = '<%= id %>';
 var vm = new Vue({
   el: '#app',
   data: {
     title: '',
     content: ''
   },
-  methods: {
-    submit () {
-    axios.post('/api/posts/create',
-      {
-        title: vm.title,
-        content: vm.content
-      })
+  created () {
+    axios.get('/api/posts/one?id=' + postId)
       .then(function(response) {
-        alert(JSON.stringify(response.data));
+        vm.title = response.data.post.title;
+        vm.content = response.data.post.content;
       })
       .catch(function(err) {
         alert(err);
       })
+  },
+    methods: {
+      submit () {
+      axios.post('/api/posts/edit',
+        {
+          id: postId,
+          title: vm.title,
+          content: vm.content
+        })
+        .then(function(response) {
+          alert(JSON.stringify(response.data));
+        })
+        .catch(function(err) {
+          alert(err);
+        })
+      }
     }
-  }
 });
 </script>

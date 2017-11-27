@@ -1,6 +1,9 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: rgba(245, 69, 201, 0.849);
+  background: rgb(218, 215, 212) url(../images/bg.jpg) no-repeat fixed;
+  background-position: center center;
 }
 
 a {
