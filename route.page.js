@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var PostModel = require('./models/post');
+var config = require('./config');
 var marked = require('marked');
 
 /* GET home page. */
@@ -32,9 +33,21 @@ router.get('/posts/show', function (req, res, next) {
   var id = req.query.id;
 //console.log("id="+id);
   PostModel.findOne({_id: id}, function (err, post) {
-    post.content = marked(post.content);
+    post.mkContent = marked(post.content);
     res.render('show', {post});
   });
 });
+/* GET signup page. */
+router.get('/signup', function(req, res, next) {
+  res.render('signup');
+});
 
+/* GET signin page. */
+router.get('/signin', function (req, res, next) {
+  res.render('signin');
+});
+router.get('/signout', function (req, res, next) {
+  res.clearCookie(config.cookieName, { path: '/' });
+  res.redirect('/');
+})
 module.exports = router;

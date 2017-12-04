@@ -24,7 +24,7 @@ var vm = new Vue({
     content: ''
   },
   created () {
-    axios.get('/api/posts/one?id=' + postId)
+    axios.get('/api/posts/' + postId)
       .then(function(response) {
         vm.title = response.data.post.title;
         vm.content = response.data.post.content;
@@ -35,14 +35,21 @@ var vm = new Vue({
   },
     methods: {
       submit () {
-      axios.post('/api/posts/edit',
+      axios.patch('/api/posts/'+ postId,
         {
-          id: postId,
           title: vm.title,
           content: vm.content
         })
         .then(function(response) {
-          alert(JSON.stringify(response.data));
+          if (response.status !== 200) {
+        throw new Error('error!');
+      }
+
+      return response.data;
+    })
+    .then(function(data) {
+          // 注意这里，用的是既有的postId来跳转到文章页面
+          window.location = '/posts/show?id=' + postId
         })
         .catch(function(err) {
           alert(err);

@@ -9,6 +9,9 @@ var bodyParser = require('body-parser');
 var page = require('./route.page');
 var api = require('./route.api');
 var expressLayouts = require('express-ejs-layouts');
+var auth = require('./middlewares/auth');
+var config = require('./config');
+
 
 var app = express();
 
@@ -22,9 +25,10 @@ app.use(expressLayouts);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser(config.cookieName));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(auth.authUser);
 app.use('/', page);
 app.use('/api', api);
 
